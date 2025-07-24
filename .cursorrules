@@ -663,11 +663,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
    - Validate and sanitize AI responses before display
    - Use placeholder/demo data for AI training examples
 
+### Page Titles & Metadata (MANDATORY)
+- **Browser Tab Titles**: MUST be descriptive and prototype-specific
+  - Format: "[Prototype Name] - [Brief Description]"  
+  - Example: "Walmart Global Replenishment - Early Warning System"
+  - Never: "Create Next App", "Welcome to Next.js", etc.
+- **Meta Description**: Include brief, context-specific description
+
 ### Rapid Prototype Checklist
 - [ ] Core functionality works
 - [ ] No console errors
 - [ ] No hardcoded credentials
 - [ ] Basic accessibility (alt text, form labels)
+- [ ] Descriptive page title (not generic Next.js default)
 - [ ] Looks decent on mobile and desktop
 
 ## PROTOTYPE ORGANIZATION & STRUCTURE
