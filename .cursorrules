@@ -1,0 +1,961 @@
+# PROTOTYPING & DESIGN SYSTEM CURSOR RULES
+# =============================================
+# 🚨 CRITICAL: These rules MUST be referenced at the start of EVERY chat session
+# 🚨 NEVER proceed with any prototyping without first reviewing these standards
+# 🚨 If you notice any deviation from these rules, immediately stop and realign
+# 
+# Comprehensive design authority for prototyping applications ranging from
+# enterprise B2B to consumer apps
+
+## 🔄 RULE FLEXIBILITY & USER CONTEXT
+# ===================================
+
+### Core Principles
+- **User Input Overrides Defaults**: If user suggests better patterns/tools, recommend them strongly
+- **Context-Driven Design**: Mobile app → mobile patterns, Enterprise → desktop patterns
+- **Prototype-First Approach**: Speed and validation over perfection
+- **Better Alternatives Welcome**: If superior free tools exist, recommend them over defaults
+- **Beginner-Friendly**: Cursor must assist - assume little prior experience
+- **Rapid Iteration**: Basic sanity checks over comprehensive testing
+
+## DESIGN PHILOSOPHY & CORE PRINCIPLES
+# ====================================
+
+### Design Philosophy
+- **User-Centric**: Every design decision must serve the end user's needs and mental models
+- **Progressive Disclosure**: Reveal complexity gradually, show only what's needed when it's needed
+- **Accessibility Aware**: Design with basic accessibility in mind (speed over perfection)
+- **Performance Conscious**: Beautiful is fast - optimize for key performance wins
+- **Context Adaptive**: Adapt to user context (device, platform, use case)
+- **Validation-Focused**: Build to test ideas quickly and iterate
+
+### Design Principles Hierarchy
+1. **Functionality** - Must work reliably for core use cases
+2. **Usability** - Must be intuitive for target users
+3. **Speed** - Must iterate and validate quickly
+4. **Aesthetics** - Must be visually appealing and on-brand
+5. **Accessibility** - Must meet basic accessibility standards
+
+## UI FRAMEWORK & TECHNICAL STACK
+# ===============================
+
+### Primary Tech Stack (Use This by Default)
+- **Frontend Framework**: React + TypeScript + Next.js
+- **UI Component Library**: Mantine (comprehensive, accessible, TypeScript-first)
+- **Styling**: Tailwind CSS + Mantine's built-in theming system
+- **Database**: Supabase (PostgreSQL, real-time, auth, storage)
+- **Deployment**: Vercel (seamless Next.js integration, edge functions)
+- **Authentication**: Supabase Auth (OAuth, magic links, row-level security)
+- **State Management**: Zustand or React Query (for server state)
+- **Animations**: Framer Motion (for meaningful micro-interactions)
+- **AI/LLM Service**: Devs.ai (when AI functionality required - Claude 3.5 Sonnet default)
+
+### Supporting Tools & Services
+- **Icons**: Tabler Icons (integrated with Mantine) + Lucide React
+- **Forms**: React Hook Form + Zod validation
+- **Date Handling**: Day.js (lightweight alternative to Moment.js)
+- **File Upload**: Supabase Storage + react-dropzone
+- **Real-time**: Supabase Realtime subscriptions
+- **Analytics**: Vercel Analytics (free tier) + Supabase Analytics (free tier)
+- **Monitoring**: Vercel Speed Insights (free) + Sentry free tier (5K errors/month)
+
+### Alternative Frameworks (context-dependent)
+- **Vue 3 + Nuxt + Vuetify** (for Vue preference)
+- **Svelte/SvelteKit + Skeleton UI** (for performance-critical applications)
+- **React Native + Expo + NativeBase** (for mobile-first prototypes)
+
+### Design Token Architecture
+```typescript
+// Design tokens should be defined as:
+const designTokens = {
+  colors: { semantic: {}, primitive: {} },
+  typography: { scale: {}, families: {} },
+  spacing: { scale: {} },
+  elevation: { shadows: {} },
+  motion: { durations: {}, easings: {} },
+  breakpoints: {},
+  borderRadius: {},
+  iconography: {}
+}
+```
+
+## TYPOGRAPHY & TEXT STANDARDS
+# ============================
+
+### Typography Scale (Type Scale: 1.250 - Major Third)
+- **Display Large**: 4rem (64px) - Hero headings, landing pages
+- **Display Medium**: 3.2rem (51px) - Section headers, feature titles
+- **Display Small**: 2.56rem (41px) - Page titles, modal headers
+- **Heading 1**: 2.048rem (33px) - Primary page headings
+- **Heading 2**: 1.638rem (26px) - Section headings
+- **Heading 3**: 1.31rem (21px) - Subsection headings
+- **Heading 4**: 1.048rem (17px) - Card titles, form labels
+- **Body Large**: 1rem (16px) - Primary body text, important content
+- **Body Medium**: 0.875rem (14px) - Secondary content, captions
+- **Body Small**: 0.75rem (12px) - Helper text, metadata
+- **Caption**: 0.625rem (10px) - Fine print, legal text
+
+### Font Families
+- **Primary (Sans-serif)**: Inter, system-ui, -apple-system, sans-serif
+- **Secondary (Serif)**: Charter, Georgia, serif (for editorial content)
+- **Monospace**: 'SF Mono', Consolas, 'Liberation Mono', monospace
+- **Display**: Custom brand fonts for headings (context-dependent)
+
+### Text Color Hierarchy
+- **Primary**: High contrast for body text (900 weight tokens)
+- **Secondary**: Medium contrast for supporting text (600 weight tokens)
+- **Tertiary**: Lower contrast for metadata (400 weight tokens)
+- **Inverse**: Text on dark backgrounds
+- **Interactive**: Links, buttons, interactive elements
+- **Semantic**: Success, warning, error, info states
+
+### Typography Rules
+- **Line Height**: 1.5 for body text, 1.2-1.3 for headings
+- **Paragraph Spacing**: 1.5em between paragraphs
+- **Character Count**: 45-75 characters per line for optimal readability
+- **Font Weight**: Use 400 (regular), 500 (medium), 600 (semibold), 700 (bold)
+
+## LAYOUT & SPACING STANDARDS
+# ===========================
+
+### Spacing Scale (8px Base Grid)
+- **0**: 0px
+- **1**: 4px (0.25rem) - Micro spacing, icon padding
+- **2**: 8px (0.5rem) - Small spacing, button padding
+- **3**: 12px (0.75rem) - Compact spacing
+- **4**: 16px (1rem) - Base spacing unit, component padding
+- **5**: 20px (1.25rem) - Medium spacing
+- **6**: 24px (1.5rem) - Large spacing, section gaps
+- **8**: 32px (2rem) - XL spacing, major sections
+- **10**: 40px (2.5rem) - XXL spacing
+- **12**: 48px (3rem) - XXXL spacing, page sections
+- **16**: 64px (4rem) - Major page divisions
+- **20**: 80px (5rem) - Hero sections, landing pages
+- **24**: 96px (6rem) - Maximum spacing
+
+### Grid Systems
+- **Desktop**: 12-column grid, 1200px max-width, 24px gutters
+- **Tablet**: 8-column grid, 768px breakpoint, 20px gutters  
+- **Mobile**: 4-column grid, 16px side margins, 16px gutters
+
+### Container Patterns
+- **Full Width**: Edge-to-edge content (hero sections, images)
+- **Constrained**: Max-width containers with centered content
+- **Sidebar**: Primary content + secondary sidebar (70/30 or 60/40 split)
+- **Card Grid**: Responsive grid of card components
+- **Dashboard**: Multi-column layouts with widgets
+
+### Responsive Breakpoints
+- **Mobile**: 0px - 767px (design mobile-first)
+- **Tablet**: 768px - 1023px  
+- **Desktop**: 1024px - 1439px
+- **Large Desktop**: 1440px+
+
+## COLOR SYSTEM & SEMANTIC COLORS
+# ===============================
+
+### Color Token Structure
+```typescript
+colors: {
+  // Primitive colors (don't use directly in components)
+  primitive: {
+    neutral: { 50: '', 100: '', ..., 900: '' },
+    blue: { 50: '', 100: '', ..., 900: '' },
+    green: { 50: '', 100: '', ..., 900: '' },
+    red: { 50: '', 100: '', ..., 900: '' },
+    amber: { 50: '', 100: '', ..., 900: '' }
+  },
+  
+  // Semantic colors (use these in components)
+  semantic: {
+    background: { primary: '', secondary: '', tertiary: '' },
+    surface: { primary: '', secondary: '', elevated: '' },
+    border: { default: '', subtle: '', strong: '' },
+    text: { primary: '', secondary: '', tertiary: '', inverse: '' },
+    interactive: {
+      primary: { default: '', hover: '', active: '', disabled: '' },
+      secondary: { default: '', hover: '', active: '', disabled: '' }
+    },
+    feedback: {
+      success: { default: '', background: '', border: '' },
+      warning: { default: '', background: '', border: '' },
+      error: { default: '', background: '', border: '' },
+      info: { default: '', background: '', border: '' }
+    }
+  }
+}
+```
+
+### Accessibility Requirements
+- **Contrast Ratios**: 4.5:1 minimum for normal text, 3:1 for large text
+- **Color Independence**: Never rely solely on color to convey information
+- **Focus Indicators**: Visible focus states for all interactive elements
+- **Color Blindness**: Test with color blindness simulators
+
+## PERFORMANCE STANDARDS (Prototype-Focused)
+# ============================================
+
+### Essential Performance (Speed Over Perfection)
+- **Images**: Optimize and lazy load large images
+- **Code Splitting**: Use Next.js automatic code splitting
+- **API Calls**: Don't block UI, show loading states
+- **Bundle**: Use framework defaults, don't over-optimize
+
+### Basic Monitoring (Free Tools Only)
+- **Lighthouse**: Run occasional checks during development
+- **Browser DevTools**: Monitor network and performance tabs
+- **User Testing**: Observe real loading on different devices
+- **Error Tracking**: Browser console + Sentry free tier (5K errors/month)
+
+### Performance Notes
+- **Prototype Priority**: Focus on core functionality over micro-optimizations
+- **Production Path**: Document performance improvements for post-validation scaling
+- **Mock Data**: Use realistic data volumes to catch major performance issues
+
+## ACCESSIBILITY BASICS (Prototype-Focused)
+# ==========================================
+
+### Essential Accessibility (Speed Priority)
+- **Alt text** for images: descriptive for content, empty alt="" for decorative
+- **Form labels** must be associated with inputs (for attribute or wrapping)
+- **Focus indicators** for interactive elements (browser defaults acceptable)
+- **Color contrast** meets basic visibility standards
+- **Semantic HTML** use proper headings (h1, h2, h3) and landmarks
+
+### Quick Testing (Optional but Recommended)
+- **WAVE browser extension**: Quick scan for major issues
+- **Keyboard testing**: Tab through main user flows
+- **Color contrast**: WebAIM Contrast Checker for key elements
+- **Screen reader**: Optional quick test with VoiceOver (Mac) or NVDA (free)
+
+### Accessibility Notes
+- **Prototype Priority**: Cover basics, document improvements for production
+- **Progressive Enhancement**: Start with semantic HTML, enhance with ARIA as needed
+- **User Testing**: Include users with disabilities in validation when possible
+- **Mock Data Consideration**: Use realistic content to test accessibility patterns
+
+## ERROR HANDLING STANDARDS
+# =========================
+
+### Error Categories & Responses
+- **Network Errors**: Retry button with exponential backoff (1s, 2s, 4s intervals)
+- **Form Validation**: Inline validation on blur, comprehensive summary on submit
+- **404 Pages**: Helpful navigation, search functionality, suggested content
+- **500 Errors**: Clear explanation, support contact, error ID for tracking
+- **Permission Denied**: Clear explanation of required permissions and next steps
+- **Timeout Errors**: Progress indicators with cancel options, auto-retry logic
+
+### Error State Design Patterns
+```typescript
+// Error message structure
+interface ErrorState {
+  title: string          // Brief, human-readable title
+  message: string        // Clear explanation of what happened
+  action?: string        // What user can do next
+  retry?: () => void     // Retry function if applicable
+  support?: string       // Contact info for help
+}
+```
+
+### Error Prevention Strategies
+- **Input Validation**: Real-time validation with helpful formatting hints
+- **Confirmation Dialogs**: For destructive actions (delete, archive, etc.)
+- **Auto-save**: For long forms and important content
+- **Undo Functionality**: For reversible actions within 10-second window
+- **Loading States**: Clear progress indicators to prevent premature actions
+
+## RESPONSIVE DESIGN STRATEGY (Context-Driven)
+# ============================================
+
+### Platform Approach (Ask User First)
+- **Mobile App**: Use mobile-first patterns and touch interfaces
+- **Desktop Enterprise**: Optimize for desktop workflows and large screens
+- **Web Application**: Responsive design with primary platform focus
+- **Cross-Platform**: True mobile-first with progressive enhancement
+
+### Mobile App Patterns (When Building Mobile Apps)
+- **Touch Targets**: Minimum 44px (iOS) / 48dp (Android) for interactive elements
+- **Thumb Zone**: Primary actions within bottom 50% of screen
+- **Navigation**: Bottom navigation for 3-5 primary sections
+- **Gestures**: Swipe for common actions (delete, archive, refresh)
+- **Modals**: Bottom sheets instead of center modals
+
+### Desktop/Enterprise Patterns (When Building Desktop Apps)
+- **Keyboard Shortcuts**: Power user accelerators (Ctrl+S, Ctrl+K)
+- **Data Density**: Information-dense layouts for productivity
+- **Multi-Panel**: Sidebar + main content layouts
+- **Context Menus**: Right-click functionality
+- **Hover States**: Rich hover interactions and tooltips
+
+### Universal Responsive Features
+- **Flexible Layouts**: CSS Grid and Flexbox for adaptability
+- **Image Optimization**: Responsive images with srcset
+- **Performance**: Code splitting and lazy loading
+- **Touch + Mouse**: Interface works with both input methods
+
+## AI/LLM INTEGRATION STANDARDS (When Required)
+# =============================================
+
+### When to Use AI/LLM Integration
+- **Content Generation**: Text, code, or creative content creation
+- **Conversational Interfaces**: Chatbots, virtual assistants, Q&A systems
+- **Data Analysis**: Text analysis, sentiment analysis, content summarization
+- **Smart Features**: Auto-completion, suggestions, intelligent search
+- **User Assistance**: Help systems, guided workflows, smart recommendations
+
+### Mandatory Devs.ai Service (When AI/LLM Required)
+When any prototype requires AI/LLM capabilities, Devs.ai is MANDATORY:
+
+- **Default Model**: claude-3-5-sonnet (configurable via environment)
+- **Streaming**: Enabled by default for better UX
+- **Caching**: Enabled in development for efficiency and cost savings
+- **Error Handling**: 1 retry + pattern matching fallback
+- **API Key**: Stored in .env.local as DEVS_AI_API_KEY
+
+### Required Service Structure (When AI/LLM Used)
+```typescript
+lib/
+├── devs-ai.ts          # Core AI service (MANDATORY)
+├── devs-ai-cache.ts    # Development caching
+└── devs-ai-fallback.ts # Fallback responses
+
+hooks/
+└── useDevAI.ts         # AI React hook (MANDATORY)
+
+types/
+└── devs-ai.ts          # AI TypeScript definitions
+```
+
+### Service Implementation Standards
+```typescript
+// Core service class
+export class DevAIService {
+  static async chat(messages: Message[], options?: ChatOptions): Promise<string>
+  static async stream(messages: Message[], onChunk: (chunk: string) => void): Promise<void>
+  static async getAvailableModels(): Promise<string[]>
+  static async retry<T>(fn: () => Promise<T>, maxRetries: number = 1): Promise<T>
+}
+
+// React hook wrapper
+export const useDevAI = (config?: DevAIConfig) => {
+  return { 
+    chat: (messages: Message[]) => Promise<string>,
+    stream: (messages: Message[], onChunk: (chunk: string) => void) => Promise<void>,
+    loading: boolean,
+    error: Error | null,
+    retry: () => void,
+    models: string[]
+  }
+}
+```
+
+### Usage Patterns
+```typescript
+// React component usage
+const { chat, stream, loading, error } = useDevAI()
+
+// Simple chat
+const response = await chat([{ role: 'user', content: 'Hello!' }])
+
+// Streaming chat
+await stream([{ role: 'user', content: 'Explain React' }], (chunk) => {
+  setResponse(prev => prev + chunk)
+})
+
+// Service usage (non-React)
+const response = await DevAIService.chat(messages, { model: 'gpt-4' })
+```
+
+### Environment Configuration
+Add these variables to your existing `.env.local` when implementing AI features:
+
+```bash
+# AI/LLM Configuration (add to existing .env.local)
+DEVS_AI_API_KEY=sk-your-api-key-here
+DEVS_AI_MODEL=claude-3-5-sonnet
+DEVS_AI_BASE_URL=https://devs.ai/api/v1
+DEVS_AI_CACHE_ENABLED=true
+DEVS_AI_MAX_RETRIES=1
+```
+
+**Note**: Core environment variables (NEXT_PUBLIC_APP_URL, SUPABASE_*) should already be configured from the initial prototype setup.
+
+### Error Handling & Fallback Strategy
+```typescript
+// 1. Primary: Devs.ai API call
+// 2. Retry: One retry attempt with exponential backoff
+// 3. Fallback: Pattern matching responses for common queries
+
+const fallbackResponses = {
+  greeting: "Hello! How can I help you today?",
+  help: "I can assist you with various questions and tasks.",
+  error: "I apologize, but I'm having trouble right now. Please try again.",
+  clarification: "Could you please rephrase or provide more details?"
+}
+```
+
+### Development Caching (Performance & Cost Optimization)
+```typescript
+// Cache AI responses in development to avoid repeated API calls
+// Cache key: hash of messages + model + temperature
+// Cache duration: Session-based (cleared on restart)
+// Production: Caching disabled by default
+```
+
+### Security Requirements (AI-Specific)
+- **API Key Storage**: Never commit devs.ai API keys to git
+- **Input Sanitization**: Sanitize all user inputs before sending to AI
+- **Rate Limiting**: Implement client-side rate limiting for AI calls
+- **Prompt Security**: Never hardcode sensitive information in prompts
+- **Response Validation**: Validate and sanitize AI responses before display
+- **Token Management**: Monitor and limit token usage to prevent cost overruns
+
+### AI Service Integration Steps
+When adding AI functionality to an existing prototype:
+
+1. **Environment Setup**: Add AI keys to existing `.env.local` (see "Add AI Service" flow above)
+2. **Service Files**: Create required AI service files in `lib/`, `hooks/`, and `types/` directories  
+3. **Import & Use**: Import the `useDevAI` hook in your components
+4. **Fallback Testing**: Verify fallback responses work when API is unavailable
+
+### Available Models (Via Environment Variable)
+- **Default**: claude-3-5-sonnet (recommended for most use cases)
+- **Alternative Options**: gpt-4, gpt-3.5-turbo, claude-3-opus, claude-3-haiku
+- **Model Switching**: Change DEVS_AI_MODEL environment variable
+- **Runtime Switching**: Pass model in options: `{ model: 'gpt-4' }`
+
+### Quality Assurance (AI-Specific)
+- [ ] AI responses are streamed for better UX
+- [ ] Fallback responses work when API is down
+- [ ] Development caching reduces API calls
+- [ ] Error states are handled gracefully
+- [ ] API key is not committed to git
+- [ ] User inputs are sanitized before AI processing
+- [ ] AI responses are validated before display
+- [ ] Rate limiting prevents API abuse
+
+## ENTERPRISE APPLICATION PATTERNS (When Building B2B)
+# ====================================================
+
+### Core Data Patterns (Essential for B2B)
+- **Data Tables**: Sortable, filterable, resizable columns with pagination
+- **Bulk Operations**: Select multiple items, bulk edit/delete with confirmation
+- **Search & Filter**: Global search with scoped results and basic filters
+- **Form Validation**: Client and server-side validation with clear error messages
+
+### User Experience Patterns (Desktop-Optimized)
+- **Dashboard Layout**: Widget-based layout with drag-and-drop customization
+- **Keyboard Shortcuts**: Common accelerators (Ctrl+S, Ctrl+K for search, Escape)
+- **Command Palette**: Global search and action interface (Cmd/Ctrl+K)
+- **Contextual Actions**: Right-click menus and inline action buttons
+- **Multi-Panel Layouts**: Sidebar + main content + optional detail panel
+
+### Authentication & Permissions (Simplified)
+- **Role-Based Access**: Basic user roles (admin, user, viewer)
+- **Permission States**: Clear indication of what users can/cannot access
+- **Session Management**: Auto-logout warnings, remember login state
+
+### Enterprise Features (When Needed)
+- **Data Export**: Basic CSV/Excel export for reports and data
+- **Multi-step Workflows**: Progress indicators and step validation
+- **Real-time Updates**: Live data feeds with WebSocket connections
+- **Notification System**: In-app notifications and email alerts
+
+### Prototype Considerations
+- **Mock Permissions**: Use simple role switching for demo purposes
+- **Sample Data**: Create realistic datasets that showcase enterprise scale
+- **Progressive Disclosure**: Start simple, add complexity based on user feedback
+
+## STATUS & BADGE STANDARDS
+# =========================
+
+### Status Categories
+- **System Status**: Online, offline, maintenance, error
+- **User Status**: Active, away, busy, offline
+- **Content Status**: Published, draft, archived, pending review
+- **Process Status**: In progress, completed, failed, cancelled
+- **Priority Levels**: Critical, high, medium, low
+- **Approval States**: Approved, pending, rejected, needs review
+
+### Badge Component Patterns
+```typescript
+// Badge variants
+type BadgeVariant = 
+  | 'default' | 'secondary' | 'outline' | 'ghost'
+  | 'success' | 'warning' | 'error' | 'info'
+
+// Badge sizes  
+type BadgeSize = 'sm' | 'md' | 'lg'
+
+// Status badge with dot indicator
+<StatusBadge status="active" variant="success" size="md">
+  Active
+</StatusBadge>
+```
+
+### Visual Treatment Rules
+- **Dot Indicators**: 6px circles for compact status display
+- **Badge Pills**: Rounded badges for category/tag display
+- **Icon + Text**: Status icon paired with descriptive text
+- **Color Coding**: Consistent color mapping across all applications
+- **Animation**: Subtle pulse for "in progress" states
+- **Positioning**: Top-right for notification counts, inline for status
+
+## COMPONENT LIBRARY STANDARDS
+# ============================
+
+### Core Component Categories
+1. **Layout**: Container, Grid, Stack, Flex, Spacer
+2. **Navigation**: Header, Sidebar, Breadcrumb, Tabs, Pagination
+3. **Data Display**: Table, List, Card, Badge, Avatar, Tooltip
+4. **Data Input**: Input, Select, Checkbox, Radio, Switch, Slider
+5. **Feedback**: Alert, Toast, Modal, Loading, Progress
+6. **Actions**: Button, Link, Menu, Dropdown
+
+### Component API Standards
+```typescript
+// Consistent prop patterns across components
+interface ComponentProps {
+  // Visual variants
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+  
+  // States
+  disabled?: boolean
+  loading?: boolean
+  error?: boolean
+  
+  // Layout
+  fullWidth?: boolean
+  className?: string
+  
+  // Accessibility
+  'aria-label'?: string
+  'aria-describedby'?: string
+}
+```
+
+### Component Documentation Requirements
+- **Usage Examples**: When and how to use each component
+- **Accessibility Notes**: ARIA patterns and keyboard interactions
+- **Visual Examples**: All variants and states demonstrated
+- **Code Examples**: Implementation patterns and best practices
+- **Do's and Don'ts**: Clear guidance on proper usage
+
+## IMPLEMENTATION RULES & PROCESS
+# ===============================
+
+### Pre-Implementation Requirements
+1. **Always discuss design structure before coding**
+2. **Ask clarifying questions about user flows and edge cases**
+3. **Confirm platform focus (mobile app vs desktop vs responsive web)**
+4. **Understand user's technical experience level**
+5. **Agree on core functionality scope for prototype**
+
+### Beginner-Friendly Implementation
+1. **Cursor Assistance**: Use Cursor to help with complex implementations
+2. **Copy-Paste Ready**: Provide working code examples that can be used immediately
+3. **Progressive Complexity**: Start with basic functionality, add features incrementally
+4. **Clear Explanations**: Explain technical decisions and patterns as you implement
+5. **No Assumptions**: Don't assume advanced knowledge of frameworks or patterns
+
+### Implementation Guidelines
+1. **Consistency Above All**: Follow established patterns religiously
+2. **Progressive Enhancement**: Build accessible base, enhance with interactions
+3. **Component Composition**: Build complex UIs from simple components
+4. **Performance First**: Optimize for Core Web Vitals
+5. **Responsive by Default**: Mobile-first approach, test all breakpoints
+
+### Code Quality Standards
+```typescript
+// Example component structure
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'primary', size = 'md', disabled, loading, children, ...props }, ref) => {
+    const baseClasses = 'btn-base'
+    const variantClasses = variants[variant]
+    const sizeClasses = sizes[size]
+    
+    return (
+      <button
+        ref={ref}
+        disabled={disabled || loading}
+        className={cn(baseClasses, variantClasses, sizeClasses, props.className)}
+        {...props}
+      >
+        {loading && <Spinner size="sm" />}
+        {children}
+      </button>
+    )
+  }
+)
+```
+
+### Safety Rules (CRITICAL - NEVER VIOLATE)
+1. **Never delete user data without explicit confirmation**
+2. **Never change layout without discussing impact first**
+3. **Never break existing functionality while implementing new features**
+4. **Never skip accessibility considerations**
+5. **Never commit code that fails linting or type checking**
+6. **SECURITY: Never commit credentials, API keys, or sensitive information**
+   - Use environment variables (.env.local) for all secrets
+   - Always add .env* files to .gitignore
+   - Use Vercel environment variables for deployment secrets
+   - Never hardcode database URLs, API keys, or tokens
+   - For prototypes: Use mock data that resembles real data without being sensitive
+   - For demos: Create realistic sample datasets without real user information
+7. **AI/LLM SECURITY: Never commit AI API keys or expose sensitive prompts**
+   - Store devs.ai API key in .env.local only
+   - Never hardcode AI prompts with sensitive information
+   - Sanitize user inputs before sending to AI service
+   - Validate and sanitize AI responses before display
+   - Use placeholder/demo data for AI training examples
+
+### Quality Assurance Checklist (Prototype-Focused)
+- [ ] Core user flows work on target platform (mobile/desktop)
+- [ ] Basic accessibility (alt text, form labels, keyboard navigation)
+- [ ] Error states show helpful messages
+- [ ] Loading states prevent user confusion
+- [ ] Design is consistent with chosen patterns
+- [ ] No hardcoded credentials or sensitive data
+- [ ] Code follows basic TypeScript/linting standards
+- [ ] Mock data is realistic but not sensitive
+
+## PROTOTYPE ORGANIZATION & STRUCTURE
+# ===================================
+
+### Folder Structure Requirements (MANDATORY)
+Each prototype MUST be organized in its own dedicated folder with this structure:
+
+```
+prototypes/
+├── [prototype-name]/
+│   ├── README.md                 # Natural language description
+│   ├── .gitignore               # Git ignore rules (SECURITY CRITICAL)
+│   ├── .env.example             # Environment variables template
+│   ├── .env.local               # Local environment (git-ignored)
+│   ├── package.json             # Dependencies and scripts
+│   ├── next.config.js           # Next.js configuration
+│   ├── tailwind.config.js       # Tailwind configuration
+│   ├── components/              # Reusable components
+│   ├── pages/ or app/           # Next.js pages/app directory
+│   ├── lib/                     # Utilities and configurations
+│   │   ├── supabase.ts         # Supabase client setup
+│   │   ├── devs-ai.ts          # AI service (if AI/LLM required)
+│   │   ├── devs-ai-cache.ts    # AI caching (if AI/LLM required)
+│   │   ├── utils.ts            # General utilities
+│   │   └── validations.ts      # Zod schemas
+│   ├── types/                   # TypeScript type definitions
+│   │   └── devs-ai.ts          # AI types (if AI/LLM required)
+│   ├── hooks/                   # Custom React hooks
+│   │   └── useDevAI.ts         # AI hook (if AI/LLM required)
+│   ├── styles/                  # Global styles
+│   └── public/                  # Static assets
+```
+
+### Required .gitignore Template (SECURITY CRITICAL)
+Every prototype MUST include this .gitignore at minimum:
+
+```gitignore
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables (CRITICAL - prevents credential exposure)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# SSH keys and config (SECURITY CRITICAL)
+*.pem
+*.key
+*.pub
+id_rsa*
+id_ed25519*
+id_ecdsa*
+ssh_config
+config
+.ssh/
+
+# Next.js
+.next/
+out/
+build/
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+```
+
+### Required .env.example Template
+Every prototype MUST include this .env.example template:
+
+```bash
+# Core Application
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Database (if using Supabase)
+SUPABASE_URL=your-supabase-project-url
+SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# AI/LLM Integration (if using AI features)
+DEVS_AI_API_KEY=your-devs-ai-api-key
+DEVS_AI_MODEL=claude-3-5-sonnet
+DEVS_AI_CACHE_ENABLED=true
+```
+
+### Naming Conventions
+- **Folder Names**: Use kebab-case (e.g., `enterprise-dashboard`, `social-media-feed`)
+- **Component Names**: Use PascalCase (e.g., `UserProfile.tsx`, `DataTable.tsx`)
+- **File Names**: Use kebab-case for utilities (e.g., `api-client.ts`, `date-utils.ts`)
+- **Hook Names**: Use camelCase with "use" prefix (e.g., `useAuth.ts`, `useLocalStorage.ts`)
+
+### README.md Requirements (CRITICAL)
+Every prototype MUST include a comprehensive README.md with:
+
+```markdown
+# [Prototype Name]
+
+## What It Is
+Brief description of the prototype's purpose and target use case.
+
+## User Experience Goals
+- Primary user goals this prototype addresses
+- Key user journeys and flows
+- Success metrics and validation criteria
+
+## Technical Architecture
+- Tech stack used (Mantine, Supabase, Vercel, etc.)
+- Key features implemented
+- Database schema overview
+- API endpoints created
+- AI/LLM integration (if applicable)
+
+## Design Decisions
+- Layout and interaction patterns chosen
+- Accessibility considerations
+- Responsive design approach
+- Component composition strategy
+
+## Setup Instructions
+Follow the appropriate setup flow from the cursor rules:
+
+1. **First Time**: Use "Core Prototype Setup" flow for initial setup
+2. **Add AI Features**: Use "Add AI Service" flow if AI/LLM functionality needed
+3. **Development**: Use standard development commands (`npm run dev`, etc.)
+
+See `.cursorrules` file for detailed setup commands and environment configuration.
+
+## Demo Credentials (if applicable)
+- Demo user accounts
+- Test data scenarios
+- Feature access levels
+
+## AI/LLM Features (if applicable)
+- Models used (default: claude-3-5-sonnet)
+- AI-powered features implemented
+- Fallback behavior when AI is unavailable
+
+## Next Steps / Future Enhancements
+- Planned improvements
+- Known limitations
+- Scaling considerations
+```
+
+### Natural Language Referencing
+Structure content so prototypes can be easily found via natural language:
+- **Tags in README**: Include searchable keywords (e.g., "enterprise", "dashboard", "B2B", "social", "mobile-first")
+- **Description Format**: Start with "This prototype demonstrates..." or "This is a working mock of..."
+- **Use Case Examples**: Include real-world scenarios (e.g., "Like Salesforce CRM", "Similar to Reddit comments")
+- **Feature Highlights**: List key features in bullet points for easy scanning
+
+### Prototype Setup Flows
+Choose the appropriate setup flow based on your prototype requirements:
+
+#### Core Prototype Setup (Always First)
+```bash
+# 1. Create prototype folder and navigate
+mkdir prototypes/[prototype-name] && cd prototypes/[prototype-name]
+
+# 2. Initialize Next.js project with TypeScript
+npx create-next-app@latest . --typescript --tailwind --eslint --app
+
+# 3. Install core dependencies
+npm install @mantine/core @mantine/hooks @mantine/form zod react-hook-form
+
+# 4. Install Supabase (if database needed)
+npm install @supabase/supabase-js
+
+# 5. Create environment file
+cp .env.example .env.local
+
+# 6. Configure basic environment variables
+# NEXT_PUBLIC_APP_URL=http://localhost:3000
+# SUPABASE_URL=your-supabase-url (if using database)
+# SUPABASE_ANON_KEY=your-supabase-anon-key (if using database)
+
+# 7. Start development
+npm run dev
+```
+
+#### Add AI Service (When AI/LLM Required)
+```bash
+# Assumes core setup completed - only add AI-specific setup:
+
+# 1. Add devs.ai API key to existing .env.local
+echo "DEVS_AI_API_KEY=your-key-here" >> .env.local
+echo "DEVS_AI_MODEL=claude-3-5-sonnet" >> .env.local
+
+# 2. Create AI service files (will be auto-generated)
+# lib/devs-ai.ts, hooks/useDevAI.ts, types/devs-ai.ts
+
+# 3. Import and use in components
+# import { useDevAI } from '@/hooks/useDevAI'
+```
+
+#### Standard Development Commands
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production  
+npm run lint         # Run linting
+npm run type-check   # TypeScript validation
+npm run db:reset     # Reset database (if applicable)
+```
+
+## DESIGN REVIEW & CRITIQUE PROCESS
+# ================================
+
+### Design Review Questions (Ask These Every Time)
+1. **User Value**: How does this solve the user's core problem?
+2. **Mental Model**: Does this match users' existing mental models?
+3. **Information Architecture**: Is the content hierarchy clear?
+4. **Cognitive Load**: Are we asking users to remember too much?
+5. **Error Prevention**: How do we prevent user mistakes?
+6. **Edge Cases**: What happens when things go wrong?
+7. **Accessibility**: Can everyone use this effectively?
+8. **Performance**: Will this be fast on slow devices/connections?
+9. **Scalability**: How will this work with 10x more content/users?
+10. **Maintenance**: How easy will this be to update and extend?
+
+### Playing Devil's Advocate (Required for Every Feature)
+- **Challenge Assumptions**: Why is this the best approach?
+- **Identify Blind Spots**: What are we not considering?
+- **Test Edge Cases**: What breaks this design?
+- **Question Complexity**: Could this be simpler?
+- **Validate Necessity**: Do users actually need this?
+
+### Red Flags to Watch For
+- **Feature Creep**: Adding features without clear user value
+- **Inconsistent Patterns**: Breaking established design conventions
+- **Accessibility Afterthoughts**: Not considering accessibility from start
+- **Performance Ignorance**: Not considering impact on load times
+- **Mobile Neglect**: Desktop-first thinking
+- **Copy Neglect**: Poor microcopy and error messages
+
+## APPLICATION-SPECIFIC GUIDELINES
+# ================================
+
+### Enterprise B2B Applications (Salesforce, RetailLink style)
+- **Density**: Information-dense interfaces, efficient use of space
+- **Workflows**: Multi-step processes, clear progress indicators
+- **Data Tables**: Advanced filtering, sorting, bulk actions
+- **Permissions**: Role-based access, clear capability boundaries
+- **Integration**: API-first design, webhook-friendly
+- **Customization**: Configurable dashboards, personalization
+
+### Consumer Applications (Reddit, Social Media style)
+- **Engagement**: Gamification, social proof, notifications
+- **Content Discovery**: Algorithmic feeds, recommendation systems
+- **User Generated Content**: Rich media support, moderation tools
+- **Social Features**: Comments, reactions, sharing, profiles
+- **Mobile First**: Touch-optimized, thumb-friendly navigation
+- **Performance**: Fast loading, infinite scroll, image optimization
+
+### Hybrid Applications (Cross-Platform Considerations)
+- **Progressive Web App**: Offline functionality, push notifications
+- **Responsive Design**: Seamless experience across all devices
+- **Touch + Mouse**: Interface works well with both input methods
+- **Context Switching**: Easy movement between personal and professional modes
+
+## VOICE, TONE & MICROCOPY
+# ========================
+
+### Writing Principles
+- **Clear and Concise**: Every word should have purpose
+- **Human and Helpful**: Write like you're helping a friend
+- **Consistent Voice**: Maintain brand personality across all content
+- **Action-Oriented**: Use active voice, clear calls-to-action
+- **Inclusive Language**: Avoid jargon, consider cultural context
+
+### Microcopy Guidelines
+- **Button Labels**: Use verbs ("Save Changes" not "Submit")
+- **Error Messages**: Explain what happened and how to fix it
+- **Empty States**: Guide users toward their first success
+- **Loading States**: Set expectations for wait times
+- **Success Messages**: Celebrate user achievements
+
+## TESTING & VALIDATION
+# ====================
+
+### Testing Strategy (Prototype-Focused)
+- **User Testing**: Quick user sessions with 3-5 people for key flows
+- **Device Testing**: Test on different screen sizes (mobile, tablet, desktop)
+- **Basic Browser Testing**: Chrome, Safari, Firefox for major functionality
+- **Performance Check**: Run Lighthouse occasionally, monitor slow interactions
+- **Code Quality**: Basic linting and TypeScript checks (automated)
+
+### Validation Approach
+- **Rapid Feedback**: Focus on core user flows and main value proposition
+- **Manual Testing**: Click through main user journeys regularly
+- **Error Monitoring**: Browser console + basic error tracking
+- **Analytics**: Simple page views and user interactions (Vercel Analytics free)
+
+### Testing Notes
+- **Prototype Priority**: Validate concept and usability over comprehensive coverage
+- **Production Path**: Document testing improvements needed for post-validation scaling
+- **Mock Data Testing**: Use realistic scenarios to uncover edge cases
+
+## 🚨 CRITICAL REMINDERS
+# ====================
+
+### ALWAYS START HERE
+1. **Reference these rules at the beginning of EVERY chat session**
+2. **Understand user context: platform, experience level, and goals**
+3. **If user suggests better tools/patterns, recommend them strongly and let user decide**
+4. **When in doubt, prioritize speed and validation over perfection**
+
+### Context Continuity Requirements
+- **Every chat must acknowledge these design standards exist**
+- **User input and context override default patterns**
+- **Security rules are NON-NEGOTIABLE across all prototypes**
+- **Flexibility clauses apply - adapt to user needs**
+
+### Final Authority
+These rules serve as intelligent guidelines that adapt to user context. User needs and input always take priority over default patterns. These standards ensure consistency, security, and quality while enabling rapid prototyping and validation.
+
+**🎯 SUCCESS CRITERIA: Every prototype should validate core concepts quickly, be secure, and provide a foundation for scaling when validated.** 
