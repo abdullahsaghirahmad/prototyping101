@@ -196,22 +196,15 @@ colors: {
 ## PERFORMANCE STANDARDS (Prototype-Focused)
 # ============================================
 
-### Essential Performance (Speed Over Perfection)
-- **Images**: Optimize and lazy load large images
-- **Code Splitting**: Use Next.js automatic code splitting
-- **API Calls**: Don't block UI, show loading states
-- **Bundle**: Use framework defaults, don't over-optimize
-
-### Basic Monitoring (Free Tools Only)
-- **Lighthouse**: Run occasional checks during development
-- **Browser DevTools**: Monitor network and performance tabs
-- **User Testing**: Observe real loading on different devices
-- **Error Tracking**: Browser console + Sentry free tier (5K errors/month)
+### Basic Performance (No Over-Engineering)
+- **Images**: Use Next.js Image component when easy
+- **Loading states**: Show spinners for slow operations
+- **Don't block UI**: Keep interface responsive
 
 ### Performance Notes
-- **Prototype Priority**: Focus on core functionality over micro-optimizations
-- **Production Path**: Document performance improvements for post-validation scaling
-- **Mock Data Strategy**: Use realistic data volumes that demonstrate scale without complexity
+- **Prototype Priority**: Focus on functionality, not optimization
+- **Use framework defaults**: Let Next.js handle the basics
+- **Document later**: Note performance improvements for production
 
 ## ACCESSIBILITY BASICS (Prototype-Focused)
 # ==========================================
@@ -223,17 +216,16 @@ colors: {
 - **Color contrast** meets basic visibility standards
 - **Semantic HTML** use proper headings (h1, h2, h3) and landmarks
 
-### Quick Testing (Optional but Recommended)
-- **WAVE browser extension**: Quick scan for major issues
-- **Keyboard testing**: Tab through main user flows
-- **Color contrast**: WebAIM Contrast Checker for key elements
-- **Screen reader**: Optional quick test with VoiceOver (Mac) or NVDA (free)
+### Basic Accessibility (Keep It Simple)
+- **Alt text** for images
+- **Form labels** for inputs  
+- **Keyboard navigation** works (tab through once)
+- **Color contrast** looks reasonable
 
 ### Accessibility Notes
-- **Prototype Priority**: Cover basics, document improvements for production
-- **Progressive Enhancement**: Start with semantic HTML, enhance with ARIA as needed
-- **User Testing**: Include users with disabilities in validation when possible
-- **Mock Data Consideration**: Use realistic content to test accessibility patterns
+- **Prototype Priority**: Cover the basics, optimize later
+- **No formal testing** needed for prototypes
+- **Document improvements** for production scaling
 
 ## ERROR HANDLING STANDARDS
 # =========================
@@ -671,47 +663,35 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
    - Validate and sanitize AI responses before display
    - Use placeholder/demo data for AI training examples
 
-### Quality Assurance Checklist (Prototype-Focused)
-- [ ] Core user flows work on target platform (mobile/desktop)
-- [ ] Basic accessibility (alt text, form labels, keyboard navigation)
-- [ ] Error states show helpful messages
-- [ ] Loading states prevent user confusion
-- [ ] Design is consistent with chosen patterns
-- [ ] No hardcoded credentials or sensitive data
-- [ ] Code follows basic TypeScript/linting standards
-- [ ] Mock data is realistic but not sensitive
+### Rapid Prototype Checklist
+- [ ] Core functionality works
+- [ ] No console errors
+- [ ] No hardcoded credentials
+- [ ] Basic accessibility (alt text, form labels)
+- [ ] Looks decent on mobile and desktop
 
 ## PROTOTYPE ORGANIZATION & STRUCTURE
 # ===================================
 
-### Folder Structure Requirements (MANDATORY)
-Each prototype MUST be organized in its own dedicated folder with this structure:
+### Folder Structure (Keep It Simple)
+Each prototype should be in its own folder. Use Next.js defaults and add files as needed:
 
 ```
-prototypes/
-├── [prototype-name]/
-│   ├── README.md                 # Natural language description
-│   ├── .gitignore               # Git ignore rules (SECURITY CRITICAL)
-│   ├── .env.example             # Environment variables template
-│   ├── .env.local               # Local environment (git-ignored)
-│   ├── package.json             # Dependencies and scripts
-│   ├── next.config.js           # Next.js configuration
-│   ├── tailwind.config.js       # Tailwind configuration
-│   ├── components/              # Reusable components
-│   ├── pages/ or app/           # Next.js pages/app directory
-│   ├── lib/                     # Utilities and configurations
-│   │   ├── supabase.ts         # Supabase client setup
-│   │   ├── devs-ai.ts          # AI service (if AI/LLM required)
-│   │   ├── devs-ai-cache.ts    # AI caching (if AI/LLM required)
-│   │   ├── utils.ts            # General utilities
-│   │   └── validations.ts      # Zod schemas
-│   ├── types/                   # TypeScript type definitions
-│   │   └── devs-ai.ts          # AI types (if AI/LLM required)
-│   ├── hooks/                   # Custom React hooks
-│   │   └── useDevAI.ts         # AI hook (if AI/LLM required)
-│   ├── styles/                  # Global styles
-│   └── public/                  # Static assets
+prototypes/[prototype-name]/
+├── README.md                    # Brief description & setup
+├── .gitignore                   # Security critical
+├── .env.local                   # Secrets (git-ignored)
+├── package.json & next.config.js # Generated by create-next-app
+├── app/ or pages/               # Next.js pages (use what's generated)
+├── components/                  # Components (create when needed)
+├── lib/                         # Utils & services (create when needed)
+└── public/                      # Static files
 ```
+
+**Key Points:**
+- **Start simple**: Use create-next-app defaults, don't over-engineer
+- **Add incrementally**: Create folders/files only when actually needed  
+- **No mandatory structure**: Each prototype can organize differently based on needs
 
 ### Required .gitignore Template (SECURITY CRITICAL)
 Every prototype MUST include this .gitignore at minimum:
@@ -773,25 +753,14 @@ lerna-debug.log*
 *.temp
 ```
 
-### Required .env.example Template
-Every prototype MUST include this .env.example template:
+### Simple .env.example Template
+Only add variables you actually use:
 
 ```bash
-# Core Application
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-
-# Mock Data Configuration (default for rapid prototyping)
-NEXT_PUBLIC_ENVIRONMENT=development
-NEXT_PUBLIC_MOCK_DATA_ENABLED=true
-
-# Database (when transitioning to real data)
-SUPABASE_URL=your-supabase-project-url
-SUPABASE_ANON_KEY=your-supabase-anon-key
-
-# AI/LLM Integration (if using AI features)
-DEVS_AI_API_KEY=your-devs-ai-api-key
-DEVS_AI_MODEL=claude-3-5-sonnet
-DEVS_AI_CACHE_ENABLED=true
+# Add only what you need:
+# SUPABASE_URL=your-supabase-url
+# SUPABASE_ANON_KEY=your-supabase-key  
+# DEVS_AI_API_KEY=your-ai-key
 ```
 
 ### Naming Conventions
@@ -862,70 +831,25 @@ Structure content so prototypes can be easily found via natural language:
 ### Prototype Setup Flows
 Choose the appropriate setup flow based on your prototype requirements:
 
-#### Core Prototype Setup (Always First)
+#### Quick Setup
 ```bash
-# 1. Create prototype folder and navigate
+# 1. Create and navigate to prototype folder
 mkdir prototypes/[prototype-name] && cd prototypes/[prototype-name]
 
-# 2. Initialize Next.js project with TypeScript
+# 2. Create Next.js app
 npx create-next-app@latest . --typescript --tailwind --eslint --app
 
-# 3. Install core dependencies
-npm install @mantine/core @mantine/hooks @mantine/form zod react-hook-form
+# 3. Install UI library (optional)
+npm install @mantine/core @mantine/hooks
 
-# 4. Set up mock data for rapid prototyping (default approach)
-# Create realistic local data for demonstration
-# No database setup needed initially
-
-# 5. Configure environment for mock data
-# NEXT_PUBLIC_APP_URL=http://localhost:3000
-# NEXT_PUBLIC_ENVIRONMENT=development
-# NEXT_PUBLIC_MOCK_DATA_ENABLED=true
-
-# 6. Start development
+# 4. Start developing
 npm run dev
 ```
 
-#### Add Database (When Real Data Needed)
-```bash
-# Only when transitioning from mock data to real data:
-
-# 1. Install Supabase
-npm install @supabase/supabase-js
-
-# 2. Add database environment variables to .env.local
-echo "SUPABASE_URL=your-supabase-url" >> .env.local
-echo "SUPABASE_ANON_KEY=your-supabase-anon-key" >> .env.local
-
-# 3. Create database service files
-# lib/supabase.ts, types/database.ts
-
-# 4. Replace mock data with database calls
-```
-
-#### Add AI Service (When AI/LLM Required)
-```bash
-# Assumes core setup completed - only add AI-specific setup:
-
-# 1. Add devs.ai API key to existing .env.local
-echo "DEVS_AI_API_KEY=your-key-here" >> .env.local
-echo "DEVS_AI_MODEL=claude-3-5-sonnet" >> .env.local
-
-# 2. Create AI service files (will be auto-generated)
-# lib/devs-ai.ts, hooks/useDevAI.ts, types/devs-ai.ts
-
-# 3. Import and use in components
-# import { useDevAI } from '@/hooks/useDevAI'
-```
-
-#### Standard Development Commands
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production  
-npm run lint         # Run linting
-npm run type-check   # TypeScript validation
-npm run db:reset     # Reset database (if applicable)
-```
+#### Add-Ons (When Needed)
+- **Database**: `npm install @supabase/supabase-js` + setup .env.local
+- **AI/LLM**: `npm install devs-ai-client` + add API key to .env.local
+- **Forms**: `npm install react-hook-form zod`
 
 ## DESIGN REVIEW & CRITIQUE PROCESS
 # ================================
@@ -999,26 +923,20 @@ npm run db:reset     # Reset database (if applicable)
 - **Loading States**: Set expectations for wait times
 - **Success Messages**: Celebrate user achievements
 
-## TESTING & VALIDATION
-# ====================
+## VALIDATION (BARE MINIMUM)
+# =============================
 
-### Testing Strategy (Prototype-Focused)
-- **User Testing**: Quick user sessions with 3-5 people for key flows
-- **Device Testing**: Test on different screen sizes (mobile, tablet, desktop)
-- **Basic Browser Testing**: Chrome, Safari, Firefox for major functionality
-- **Performance Check**: Run Lighthouse occasionally, monitor slow interactions
-- **Code Quality**: Basic linting and TypeScript checks (automated)
+### Rapid Prototype Validation
+- **Manual Testing**: Click through core user flows once
+- **Error Check**: Fix any obvious browser console errors
+- **Mobile/Desktop**: Quick check on both if responsive
+- **Core Functionality**: Verify main features work
 
-### Validation Approach
-- **Rapid Feedback**: Focus on core user flows and main value proposition
-- **Manual Testing**: Click through main user journeys regularly
-- **Error Monitoring**: Browser console + basic error tracking
-- **Analytics**: Simple page views and user interactions (Vercel Analytics free)
-
-### Testing Notes
-- **Prototype Priority**: Validate concept and usability over comprehensive coverage
-- **Production Path**: Document testing improvements needed for post-validation scaling
-- **Mock Data Testing**: Use realistic scenarios to uncover edge cases
+### That's It!
+- **No formal testing** required for prototypes
+- **No test suites** needed 
+- **Focus on speed** over comprehensive coverage
+- **Save testing** for post-validation when scaling
 
 ## 🚨 CRITICAL REMINDERS
 # ====================
