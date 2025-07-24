@@ -43,9 +43,10 @@
 - **Frontend Framework**: React + TypeScript + Next.js
 - **UI Component Library**: Mantine (comprehensive, accessible, TypeScript-first)
 - **Styling**: Tailwind CSS + Mantine's built-in theming system
-- **Database**: Supabase (PostgreSQL, real-time, auth, storage)
+- **Data Strategy**: Mock data first for rapid prototyping, Supabase for production
+- **Database**: Supabase (when transitioning from mock to real data)
 - **Deployment**: Vercel (seamless Next.js integration, edge functions)
-- **Authentication**: Supabase Auth (OAuth, magic links, row-level security)
+- **Authentication**: Supabase Auth (when user management needed)
 - **State Management**: Zustand or React Query (for server state)
 - **Animations**: Framer Motion (for meaningful micro-interactions)
 - **AI/LLM Service**: Devs.ai (when AI functionality required - Claude 3.5 Sonnet default)
@@ -210,7 +211,7 @@ colors: {
 ### Performance Notes
 - **Prototype Priority**: Focus on core functionality over micro-optimizations
 - **Production Path**: Document performance improvements for post-validation scaling
-- **Mock Data**: Use realistic data volumes to catch major performance issues
+- **Mock Data Strategy**: Use realistic data volumes that demonstrate scale without complexity
 
 ## ACCESSIBILITY BASICS (Prototype-Focused)
 # ==========================================
@@ -466,6 +467,27 @@ When adding AI functionality to an existing prototype:
 - **Sample Data**: Create realistic datasets that showcase enterprise scale
 - **Progressive Disclosure**: Start simple, add complexity based on user feedback
 
+## MOCK DATA STRATEGY (Default Approach)
+# ====================================
+
+### Rapid Prototyping with Mock Data
+- **Default Approach**: Start with local mock data for fastest iteration
+- **Realistic Scale**: Create data volumes that demonstrate real-world scenarios
+- **Demo-Safe Content**: Use realistic but non-sensitive information
+- **Performance Testing**: Include enough data to test UI performance patterns
+
+### Mock Data Best Practices
+- **Structured Data**: Use TypeScript interfaces for data consistency
+- **Realistic Relationships**: Mirror real database relationships in mock objects
+- **Internationalization**: Include multi-currency, multi-language samples when needed
+- **Edge Cases**: Include empty states, error scenarios, and boundary conditions
+
+### Transition Strategy
+- **Phase 1**: Build and validate with mock data
+- **Phase 2**: Add database layer when concept is proven
+- **Phase 3**: Scale to production with real integrations
+- **Documentation**: Clear migration path from mock to real data
+
 ## STATUS & BADGE STANDARDS
 # =========================
 
@@ -547,10 +569,44 @@ interface ComponentProps {
 
 ### Pre-Implementation Requirements
 1. **Always discuss design structure before coding**
-2. **Ask clarifying questions about user flows and edge cases**
-3. **Confirm platform focus (mobile app vs desktop vs responsive web)**
-4. **Understand user's technical experience level**
-5. **Agree on core functionality scope for prototype**
+2. **Apply product leader thinking to validate the problem and solution**
+3. **Ask clarifying questions about user flows and edge cases**
+4. **Confirm platform focus (mobile app vs desktop vs responsive web)**
+5. **Understand user's technical experience level**
+6. **Agree on core functionality scope for prototype**
+7. **Research existing tools/systems when building for established companies**
+
+### Product Leader Validation Questions
+Before building any prototype, ask these strategic questions:
+
+**User Research:**
+- WHO are the primary users and what are their current workflows?
+- WHAT pain points does this solve and how do users currently work around them?
+- WHERE and WHEN do users need this solution in their daily work?
+
+**Business Impact:**
+- WHAT'S THE COST of the current problem in measurable terms?
+- WHY is this urgent now? What changed that makes this a priority?
+- HOW will success be measured? What are the key metrics and KPIs?
+
+**Solution Validation:**
+- WHAT'S THE MINIMUM viable solution that provides value?
+- HOW does this fit into existing tools and workflows?
+- WHAT are the technical constraints and integration requirements?
+
+**Competitive Context:**
+- HOW do competitors or similar companies solve this problem?
+- WHAT can we learn from existing internal tools and processes?
+- WHERE are the opportunities to differentiate or improve?
+
+### Enterprise Research Strategy
+When building for established companies (Walmart, Salesforce, etc.):
+- **Web search** for existing tools, interfaces, and design patterns
+- **Analyze current design language** (colors, typography, layouts)
+- **Identify established user flows** and interaction patterns
+- **Match visual consistency** to reduce learning curve
+- **Respect brand guidelines** and corporate aesthetics
+- **Document research findings** and apply to prototype design
 
 ### Beginner-Friendly Implementation
 1. **Cursor Assistance**: Use Cursor to help with complex implementations
@@ -596,6 +652,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 3. **Never break existing functionality while implementing new features**
 4. **Never skip accessibility considerations**
 5. **Never commit code that fails linting or type checking**
+6. **Never ask user to test or declare app complete if there are code errors**
+   - Always run `npm run build` to verify compilation succeeds
+   - Always start `npm run dev` to verify app runs without runtime errors
+   - Fix all linter errors and TypeScript issues before completion
+   - Test core functionality before declaring prototype ready
 6. **SECURITY: Never commit credentials, API keys, or sensitive information**
    - Use environment variables (.env.local) for all secrets
    - Always add .env* files to .gitignore
@@ -719,7 +780,11 @@ Every prototype MUST include this .env.example template:
 # Core Application
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-# Database (if using Supabase)
+# Mock Data Configuration (default for rapid prototyping)
+NEXT_PUBLIC_ENVIRONMENT=development
+NEXT_PUBLIC_MOCK_DATA_ENABLED=true
+
+# Database (when transitioning to real data)
 SUPABASE_URL=your-supabase-project-url
 SUPABASE_ANON_KEY=your-supabase-anon-key
 
@@ -808,19 +873,34 @@ npx create-next-app@latest . --typescript --tailwind --eslint --app
 # 3. Install core dependencies
 npm install @mantine/core @mantine/hooks @mantine/form zod react-hook-form
 
-# 4. Install Supabase (if database needed)
+# 4. Set up mock data for rapid prototyping (default approach)
+# Create realistic local data for demonstration
+# No database setup needed initially
+
+# 5. Configure environment for mock data
+# NEXT_PUBLIC_APP_URL=http://localhost:3000
+# NEXT_PUBLIC_ENVIRONMENT=development
+# NEXT_PUBLIC_MOCK_DATA_ENABLED=true
+
+# 6. Start development
+npm run dev
+```
+
+#### Add Database (When Real Data Needed)
+```bash
+# Only when transitioning from mock data to real data:
+
+# 1. Install Supabase
 npm install @supabase/supabase-js
 
-# 5. Create environment file
-cp .env.example .env.local
+# 2. Add database environment variables to .env.local
+echo "SUPABASE_URL=your-supabase-url" >> .env.local
+echo "SUPABASE_ANON_KEY=your-supabase-anon-key" >> .env.local
 
-# 6. Configure basic environment variables
-# NEXT_PUBLIC_APP_URL=http://localhost:3000
-# SUPABASE_URL=your-supabase-url (if using database)
-# SUPABASE_ANON_KEY=your-supabase-anon-key (if using database)
+# 3. Create database service files
+# lib/supabase.ts, types/database.ts
 
-# 7. Start development
-npm run dev
+# 4. Replace mock data with database calls
 ```
 
 #### Add AI Service (When AI/LLM Required)
